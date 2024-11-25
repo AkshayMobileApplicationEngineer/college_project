@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'drawer.dart'; // Import the drawer widget
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Hardcoded values for username, email, and phone number
     String username = 'John Doe';
     String email = 'john.doe@example.com';
     String mobile = '123-456-7890';
 
     return Scaffold(
       appBar: _buildAppBar(),
-      drawer: AppDrawer(username: username, email: email), // Use the AppDrawer widget
       body: _buildBody(username, email, mobile),
     );
   }
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Home'),
+      title: const Text('Profile'),
       centerTitle: true,
       backgroundColor: Colors.deepPurple[400],
     );
@@ -33,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           Text(
-            'Welcome, $username',
+            'Username: $username',
             style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -57,10 +56,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: HomeScreen(),
-  ));
 }
