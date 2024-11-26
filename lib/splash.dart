@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   // Hardcoding version, build number, and company name
   String version = '1.0.0';
   String buildNumber = '100';
-  String companyName = 'Your Company Name'; // Replace with your company name
+  String companyName = 'PanLogicTech Solution Team\nRIT College, Koderma'; // Replace with your company name
 
   @override
   void initState() {

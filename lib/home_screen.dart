@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 import 'drawer.dart'; // Import the drawer widget
+import 'profile_screen.dart'; // Import the profile screen widget
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _children = [
+    Container(color: Colors.blue), // Home screen content
+    Container(color: Colors.green), // Profile screen content
+    Container(color: Colors.red), // Settings screen content
+  ];
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,48 +33,37 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(),
       drawer: AppDrawer(username: username, email: email), // Use the AppDrawer widget
-      body: _buildBody(username, email, mobile),
+      body: _children[_currentIndex],
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Home'),
+      title: const Text('Home',style: TextStyle(color: Colors.white)),
       centerTitle: true,
       backgroundColor: Colors.deepPurple[400],
     );
   }
 
-  Widget _buildBody(String username, String email, String mobile) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          Text(
-            'Welcome, $username',
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple,
-            ),
-          ),
-          const SizedBox(height: 20),
-          _buildUserDetails('Email: $email'),
-          _buildUserDetails('Phone: $mobile'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUserDetails(String details) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: Text(
-        details,
-        style: const TextStyle(fontSize: 18, color: Colors.deepPurple),
-      ),
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      onTap: onTabTapped,
+      currentIndex: _currentIndex,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Settings',
+        ),
+      ],
     );
   }
 }
